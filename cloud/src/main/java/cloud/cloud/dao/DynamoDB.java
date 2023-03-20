@@ -1,10 +1,12 @@
 package cloud.cloud.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
 
 public class DynamoDB<T> {
     
@@ -33,9 +35,9 @@ public class DynamoDB<T> {
         System.out.println("Creating table");
 
         try {
-            this.table = this.getTableFromClient();
+            this.table = this.initTableFromClient();
             this.table.createTable();
-            this.table = this.getTableFromClient();
+            this.table = DynamoDB.client.table(this.tableName, this.schema);
             System.out.println(this.table);
         } catch (Error error) {
             error.printStackTrace();
@@ -46,9 +48,7 @@ public class DynamoDB<T> {
 
     public Boolean addItems(List<T> items) {
         
-        if (this.table == null) {
-            this.table = this.getTableFromClient();
-        }
+        this.initTableFromClient();
 
         try {
             for (T item : items) {
@@ -62,7 +62,19 @@ public class DynamoDB<T> {
         return true;
     }
 
-    private DynamoDbTable<T> getTableFromClient() {
-        return DynamoDB.client.table(this.tableName, this.schema);
+    public List<T> getAllItems() {
+        System.out.println("Getting all items");
+        this.initTableFromClient();
+        PageIterable<T> items = this.table.scan();
+        List<T> itemList = new ArrayList<T>();
+        items.stream().forEach(pages -> pages.items().forEach(item -> itemList.add(item)));
+        return itemList;
+    }
+
+    private DynamoDbTable<T> initTableFromClient() {
+        if (this.table == null) {
+            this.table = DynamoDB.client.table(this.tableName, this.schema);
+        }
+        return this.table;
     }
 }
