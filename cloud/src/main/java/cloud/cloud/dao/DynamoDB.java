@@ -28,7 +28,6 @@ public class DynamoDB<T> {
             System.out.println("Init Dynamodb Client");
             DynamoDB.client = DynamoDbEnhancedClient.create();
         }
-        System.out.println(DynamoDB.client);
     }
 
     public Boolean createTable() {
