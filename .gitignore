@@ -31,3 +31,26 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+cloud-front/node_modules
+cloud-front/.pnp
+cloud-front/.pnp.js
+
+# testing
+cloud-front/coverage
+
+# production
+cloud-front/build
+
+# misc
+cloud-front/.DS_Store
+cloud-front/.env.local
+cloud-front/.env.development.local
+cloud-front/.env.test.local
+cloud-front/.env.production.local
+
+cloud-front/npm-debug.log*
+cloud-front/yarn-debug.log*
+cloud-front/yarn-error.log*
+
