@@ -38,7 +38,7 @@ public class CloudApplication {
 
 	private static void uploadArtistImages() {
 		S3 bucket = new S3("cc-assignment1");
-		bucket.addObject("/Users/jainamdoshi/Library/CloudStorage/OneDrive-RMITUniversity/University/Australia/RMIT/Course Work/Semester 5/Cloud Computing/Assignments/CC-A1/cloud/src/main/resources/static/Artists Images");
+		bucket.addObject("/Users/jainamdoshi/Library/CloudStorage/OneDrive-RMITUniversity/University/Australia/RMIT/Course Work/Semester 5/Cloud Computing/Assignments/CC-A1/Artists Images");
 	}
 
 	private static void downloadArtistImages(List<Music> songs) {
@@ -50,7 +50,7 @@ public class CloudApplication {
 			try {
 				URL url = new URL(image_url);
 				InputStream inputStream = url.openConnection().getInputStream();
-				OutputStream outputStream = new FileOutputStream(String.format("/Users/jainamdoshi/Library/CloudStorage/OneDrive-RMITUniversity/University/Australia/RMIT/Course Work/Semester 5/Cloud Computing/Assignments/CC-A1/cloud/src/main/resources/static/Artists Images/%s - %s.jpg", title, artist));
+				OutputStream outputStream = new FileOutputStream(String.format("/Users/jainamdoshi/Library/CloudStorage/OneDrive-RMITUniversity/University/Australia/RMIT/Course Work/Semester 5/Cloud Computing/Assignments/CC-A1/Artists Images/%s - %s.jpg", title, artist));
 
 				byte[] buffer = new byte[4096];
                 int read = -1;

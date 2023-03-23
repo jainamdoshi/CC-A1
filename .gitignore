@@ -54,3 +54,4 @@ cloud-front/npm-debug.log*
 cloud-front/yarn-debug.log*
 cloud-front/yarn-error.log*
 
+.DS_Store
