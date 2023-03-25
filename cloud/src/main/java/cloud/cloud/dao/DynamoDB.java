@@ -70,6 +70,10 @@ public class DynamoDB<T> {
         return itemList;
     }
 
+    public T getItem(T item) {
+        return this.table.getItem(item);
+    }
+
     private DynamoDbTable<T> initTableFromClient() {
         if (this.table == null) {
             this.table = DynamoDB.client.table(this.tableName, this.schema);
