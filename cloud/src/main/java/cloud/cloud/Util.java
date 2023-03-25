@@ -28,7 +28,7 @@ public class Util {
     public static JSONObject getResponseHeader() {
         JSONObject header = new JSONObject();
         header.put("Access-Control-Allow-Origin", "*");
-        header.put("Access-Control-Allow-Methods", "OPTIONS,POST,GET");
+        header.put("Access-Control-Allow-Methods", "OPTIONS,POST,GET,PUT");
         header.put("Access-Control-Allow-Headers", "Access-Control-Allows-Headers, Access-Control-Allow-Origin, Origin,Accept, X-Requested-With, contenttype, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
         return header;
     }

@@ -51,7 +51,7 @@ public class DynamoDB<T> {
 
         try {
             for (T item : items) {
-                this.table.putItem(item);
+                this.addItem(item);
             }
         } catch (Error error) {
             error.printStackTrace();
@@ -59,6 +59,11 @@ public class DynamoDB<T> {
         }
 
         return true;
+    }
+
+    public void addItem(T item) {
+        this.initTableFromClient();
+        this.table.putItem(item);
     }
 
     public List<T> getAllItems() {

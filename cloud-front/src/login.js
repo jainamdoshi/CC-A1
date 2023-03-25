@@ -74,7 +74,7 @@ export default function Login(props) {
             <form onSubmit={handleSubmit}>
                 <label>
                     Email
-                    <input type='text' value={email} onChange={emailOnChange} required></input>
+                    <input type='email' value={email} onChange={emailOnChange} placeholder="john@doe.com" required></input>
                 </label>
                 <label>
                     Password

@@ -15,49 +15,43 @@ import cloud.cloud.dao.DynamoDB;
 import cloud.cloud.model.User;
 
 @SuppressWarnings("unchecked")
-public class Login implements RequestStreamHandler {
-            
+public class Signup implements RequestStreamHandler {
+
     @Override
     public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
         JSONObject response = new JSONObject();
         JSONObject header = Util.getResponseHeader();
         response.put("headers", header);
-        
-        
+
         DynamoDB<User> users = new DynamoDB<>("login", User.class);
-        
-        try {
             
+        try {
             JSONObject request = Util.getJSONObject(input);
             JSONParser parser = new JSONParser();
             JSONObject requestBody = (JSONObject) parser.parse((String) request.get("body"));
             JSONObject responseBody = new JSONObject();
-            
-            // System.out.println(requestBody.get("email"));
-            // System.out.println(requestBody.get("password"));
-            // System.out.println(request.toString());
-            User tempUser = new User((String) requestBody.get("email"));
-            User user = users.getItem(tempUser);
 
-            if (user != null && user.getpassword().equals((String) requestBody.get("password"))) {
-                System.out.println("Valid username and password");
-                response.put("statusCode", 200);
-                responseBody.put("username", (String) user.getUsername());
-                // System.out.println(user.getUsername());
-                // System.out.println(user.getemail());
-                // System.out.println(user.getpassword());
-            } else {
-                response.put("statusCode", 401);
-                responseBody.put("message", "Invalid username or password");
-                System.out.println("Invalid username or password");
-            }
+            User newUser = new User((String) requestBody.get("email"), (String) requestBody.get("username"), (String) requestBody.get("password"));
+            User existingUser = users.getItem(newUser);
             
+
+            if (existingUser == null) {
+                users.addItem(newUser);
+                System.out.println("New user added");
+                response.put("statusCode", 201);
+                responseBody.put("username", newUser.getUsername());
+            } else {
+                System.out.println("User already exists");
+                response.put("statusCode", 406);
+                responseBody.put("message", "User already exists");
+            }
+
             response.put("body", responseBody.toString());
-        } catch (Exception e) { 
+        } catch (Exception e) {
             e.printStackTrace();
-            response.put("statusCode", 200);
         }
         
+
         System.out.println(response);
         Util.writeJSONInStream(output, response);
     }

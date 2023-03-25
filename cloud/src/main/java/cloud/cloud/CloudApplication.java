@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import cloud.cloud.dao.DynamoDB;
 import cloud.cloud.dao.S3;
 import cloud.cloud.lambda.Login;
+import cloud.cloud.lambda.Signup;
 import cloud.cloud.model.Music;
 import cloud.cloud.model.User;
 
@@ -35,16 +36,20 @@ public class CloudApplication {
 		SpringApplication.run(CloudApplication.class, args);
 		// DynamoDB<User> userTable = new DynamoDB<User>("login", User.class);
 
-		Login login = new Login();
+		Signup signup = new Signup();
 		JSONObject request = new JSONObject();
 		JSONObject body = new JSONObject();
-		body.put("email", "s38258910@student.rmit.edu.au");
+
+		body.put("email", "newUser@student.rmit.edu.au");
+		body.put("username", "newUser");
 		body.put("password", "012345");
 		request.put("body", body.toString());
 		String str = request.toString();
 		InputStream is = new ByteArrayInputStream(str.getBytes());
+
+
 		try {
-			login.handleRequest(is, null, null);
+			signup.handleRequest(is, null, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
