@@ -20,7 +20,7 @@ public class Login implements RequestStreamHandler {
             
     @Override
     public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
-        LambdaLogger logger = context.getLogger();
+        // LambdaLogger logger = context.getLogger();
         JSONObject response = new JSONObject();
         JSONObject header = Util.getResponseHeader();
         
@@ -29,21 +29,39 @@ public class Login implements RequestStreamHandler {
         
         try {
             response.put("headers", header);
-            response.put("statusCode", 200);
-
+            
             JSONObject request = Util.getJSONObject(input);
             JSONParser parser = new JSONParser();
             JSONObject requestBody = (JSONObject) parser.parse((String) request.get("body"));
             JSONObject responseBody = new JSONObject();
+            
+            // System.out.println(requestBody.get("email"));
+            // System.out.println(requestBody.get("password"));
+            // System.out.println(request.toString());
+            User tempUser = new User((String) requestBody.get("email"));
+            User user = users.getItem(tempUser);
 
-
+            if (user != null && user.getpassword().equals((String) requestBody.get("password"))) {
+                System.out.println("Valid username and password");
+                response.put("statusCode", 200);
+                responseBody.put("username", (String) user.getUsername());
+                // System.out.println(user.getUsername());
+                // System.out.println(user.getemail());
+                // System.out.println(user.getpassword());
+            } else {
+                response.put("statusCode", 401);
+                System.out.println("Invalid username or password");
+            }
+            
             response.put("body", responseBody.toString());
         } catch (Exception e) { 
             e.printStackTrace();
+            response.put("statusCode", 200);
         }
         
         
-        logger.log(response.toString());
+        // logger.log(response.toString());
+        System.out.println(response);
         Util.writeJSONInStream(output, response);
     }
     

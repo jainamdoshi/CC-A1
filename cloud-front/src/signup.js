@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
-export default function Signup() {
+export default function Signup(props) {
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
 
     function handleOnSubmit(event) {
         event.preventDefault();

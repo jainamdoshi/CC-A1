@@ -1,14 +1,19 @@
 package cloud.cloud;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,7 +23,9 @@ import com.google.gson.JsonObject;
 
 import cloud.cloud.dao.DynamoDB;
 import cloud.cloud.dao.S3;
+import cloud.cloud.lambda.Login;
 import cloud.cloud.model.Music;
+import cloud.cloud.model.User;
 
 @SpringBootApplication
 public class CloudApplication {
@@ -26,7 +33,22 @@ public class CloudApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CloudApplication.class, args);
-		downloadAndUploadAllArtistsImages();
+		// DynamoDB<User> userTable = new DynamoDB<User>("login", User.class);
+
+		Login login = new Login();
+		JSONObject request = new JSONObject();
+		JSONObject body = new JSONObject();
+		body.put("email", "s38258910@student.rmit.edu.au");
+		body.put("password", "012345");
+		request.put("body", body.toString());
+		String str = request.toString();
+		InputStream is = new ByteArrayInputStream(str.getBytes());
+		try {
+			login.handleRequest(is, null, null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void downloadAndUploadAllArtistsImages() {

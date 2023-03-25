@@ -71,6 +71,7 @@ public class DynamoDB<T> {
     }
 
     public T getItem(T item) {
+        this.initTableFromClient();
         return this.table.getItem(item);
     }
 
