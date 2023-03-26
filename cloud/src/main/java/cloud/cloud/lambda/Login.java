@@ -3,7 +3,9 @@ package cloud.cloud.lambda;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -12,6 +14,7 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
 import cloud.cloud.Util;
 import cloud.cloud.dao.DynamoDB;
+import cloud.cloud.model.Music;
 import cloud.cloud.model.User;
 
 @SuppressWarnings("unchecked")
@@ -43,6 +46,7 @@ public class Login implements RequestStreamHandler {
                 System.out.println("Valid username and password");
                 response.put("statusCode", 200);
                 responseBody.put("username", (String) user.getUsername());
+            
                 // System.out.println(user.getUsername());
                 // System.out.println(user.getemail());
                 // System.out.println(user.getpassword());
@@ -61,5 +65,7 @@ public class Login implements RequestStreamHandler {
         System.out.println(response);
         Util.writeJSONInStream(output, response);
     }
+
+
     
 }

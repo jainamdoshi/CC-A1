@@ -1,11 +1,14 @@
 package cloud.cloud.model;
 
 
+import org.json.simple.JSONObject;
+
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
+@SuppressWarnings("unchecked")
 @DynamoDbBean
 public class Music {
     
@@ -17,6 +20,10 @@ public class Music {
 
     public Music() {
         
+    }
+
+    public Music(String title) {
+        this.title = title;
     }
     
     public Music(String title, String artist, int year, String web_url, String image_url) {
@@ -70,6 +77,17 @@ public class Music {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public JSONObject getJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", this.title);
+        json.put("artist", this.artist);
+        json.put("year", this.year);
+        json.put("web_url", this.web_url);
+        json.put("image_url", this.image_url);
+
+        return json;
     }
 }
 

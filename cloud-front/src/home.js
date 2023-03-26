@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Subscription from './subsription';
+import Query from './query';
 
 export default function Home(props) {
 
@@ -18,6 +20,7 @@ export default function Home(props) {
         }
     })
 
+
     return (
         <div>
             <div>
@@ -26,6 +29,8 @@ export default function Home(props) {
             <form onSubmit={handleLogout}>
                 <button type='submit'>Logout</button>
             </form>
+            {state && <Subscription email={state.email} subscriptions={state.subscriptions}/>}
+            <Query />
         </div>
     )
 }

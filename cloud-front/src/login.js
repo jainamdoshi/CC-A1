@@ -6,6 +6,7 @@ export default function Login(props) {
     const [email, setemail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [subscriptions, setSubscriptions] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loggedInFailed, setLoggedInFailed] = useState(false);
     const navigate = useNavigate();
@@ -20,8 +21,6 @@ export default function Login(props) {
             setLoggedInFailed(true);
         }
     
-        setemail("");
-        setPassword("");
     }
 
     function emailOnChange(event) {
@@ -53,6 +52,7 @@ export default function Login(props) {
         if (response.status == 200) {
             let body = await response.json();
             setUsername(body.username);
+            setSubscriptions(body.subscriptions);
             return true;
         }
     
@@ -61,7 +61,7 @@ export default function Login(props) {
 
     useEffect(() => {
         if (isLoggedIn) {
-            navigate("/", {state: {username: username}});
+            navigate("/", {state: {username: username, email: email, subscriptions: subscriptions}});
         }
     })
 

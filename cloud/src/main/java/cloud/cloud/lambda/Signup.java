@@ -31,7 +31,7 @@ public class Signup implements RequestStreamHandler {
             JSONObject requestBody = (JSONObject) parser.parse((String) request.get("body"));
             JSONObject responseBody = new JSONObject();
 
-            User newUser = new User((String) requestBody.get("email"), (String) requestBody.get("username"), (String) requestBody.get("password"));
+            User newUser = new User((String) requestBody.get("email"), (String) requestBody.get("username"), (String) requestBody.get("password"), null);
             User existingUser = users.getItem(newUser);
             
 
