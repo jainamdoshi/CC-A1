@@ -25,6 +25,7 @@ import cloud.cloud.dao.DynamoDB;
 import cloud.cloud.dao.S3;
 import cloud.cloud.lambda.Login;
 import cloud.cloud.lambda.Signup;
+import cloud.cloud.lambda.Song;
 import cloud.cloud.lambda.Subscription;
 import cloud.cloud.model.Music;
 import cloud.cloud.model.User;
@@ -39,20 +40,21 @@ public class CloudApplication {
 
 		// Login login = new Login();
 		// Signup signup = new Signup();
-		Subscription unsubscribe = new Subscription();
+		// Subscription unsubscribe = new Subscription();
+		Song song = new Song();
 		JSONObject request = new JSONObject();
-		JSONObject body = new JSONObject();
+		// JSONObject body = new JSONObject();
 
-		body.put("email", "s38258910@student.rmit.edu.au");
-		body.put("title", "Watching the Wheels");
+		// body.put("email", "s38258910@student.rmit.edu.au");
+		// body.put("title", "Watching the Wheels");
 		// body.put("password", "012345");
-		request.put("body", body.toString());
+		// request.put("body", body.toString());
 		String str = request.toString();
 		InputStream is = new ByteArrayInputStream(str.getBytes());
 
 
 		try {
-			unsubscribe.handleRequest(is, null, null);
+			song.handleRequest(is, null, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

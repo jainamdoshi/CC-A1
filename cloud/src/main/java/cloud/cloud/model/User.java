@@ -65,7 +65,7 @@ public class User {
         return this.subscriptions;
     }
 
-    public JSONArray getSubscriptionJson() {
+    public JSONArray getSubscriptionsJson() {
         JSONArray songs = new JSONArray();
 
         for (Music song : this.subscriptions) {
@@ -78,6 +78,8 @@ public class User {
     public void setSubscriptions(List<Music> subscriptions) {
         this.subscriptions = subscriptions;
     }
+
+
 
     public void unscubscribe(String title) {
         int index = findMusic(title);

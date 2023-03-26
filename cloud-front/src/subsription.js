@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Music from './music'
 import _ from 'lodash'
 import { useLocation } from 'react-router-dom';
+import Query from './query';
 
 export default function Subscription(props) {
 
     const [subscriptions, setSubscriptions] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
 
-    async function handleSubmit(event, title) {
+    async function handleSubmit(event, title, artist) {
         event.preventDefault();
 
         let request = {
@@ -19,6 +20,7 @@ export default function Subscription(props) {
             body: JSON.stringify({
                 email: props.email,
                 title: title,
+                artist: artist,
                 message: "unsubscribe"
             })
         };
@@ -52,7 +54,6 @@ export default function Subscription(props) {
                 console.log(body)
                 setSubscriptions(JSON.parse(body.subscriptions));
             })
-            .then((data) => console.log(data))
     }
 
     useEffect(() => {
@@ -62,18 +63,24 @@ export default function Subscription(props) {
         setIsDataFetched(true);
     })
 
+    function updateSub() {
+        setIsDataFetched(false);
+    }
+
     return (
         <div>
             <h3>Subscription Area</h3>
             {
-                subscriptions.map((sub, index) => <div key={index}>
+                subscriptions.map((sub, index) => 
+                <div key={index}>
                         <Music  email={props.email} data={sub} />
-                        <form onSubmit={e => handleSubmit(e, sub.title)}>
+                        <form onSubmit={e => handleSubmit(e, sub.title, sub.artist)}>
                             <button type="submit">Remove</button>
                         </form>
                     </div>
                 )
             }
+            <Query email={props.email} updateSub={updateSub}/>
         </div>
     )
 }

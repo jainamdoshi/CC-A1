@@ -46,12 +46,13 @@ public class Subscription implements RequestStreamHandler {
                 System.out.println(user);
                 String message = (String) requestBody.get("message");
                 String title = (String) requestBody.get("title");
+                String artist = (String) requestBody.get("artist");
                 if (message.equals("unsubscribe")) {
                     this.unsubscribe(user, title);
                     response.put("statusCode", 200);
                     responseBody.put("message", "Unsubscribed");
                 } else if (message.equals("subscribe")) {
-                    this.subscribe(user, title);
+                    this.subscribe(user, title, artist);
                     response.put("statusCode", 200);
                     responseBody.put("message", "Subscribed");
                 }
@@ -68,9 +69,9 @@ public class Subscription implements RequestStreamHandler {
         Util.writeJSONInStream(output, response);
     }
 
-    private void subscribe(User user, String title) {
+    private void subscribe(User user, String title, String artist) {
         DynamoDB<Music> songs = new DynamoDB<>("music", Music.class);
-        Music song = songs.getItem(new Music(title));
+        Music song = songs.getItem(new Music(title, artist));
         user.subscribe(song);
         users.addItem(user);
     }
@@ -83,7 +84,7 @@ public class Subscription implements RequestStreamHandler {
 
     private JSONArray getSubscriptions(String email) {
         User user = users.getItem(new User(email));
-        return user.getSubscriptionJson();
+        return user.getSubscriptionsJson();
     }
     
 }

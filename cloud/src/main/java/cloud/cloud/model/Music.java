@@ -22,8 +22,9 @@ public class Music {
         
     }
 
-    public Music(String title) {
+    public Music(String title, String artist) {
         this.title = title;
+        this.artist = artist;
     }
     
     public Music(String title, String artist, int year, String web_url, String image_url) {

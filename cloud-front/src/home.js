@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Subscription from './subsription';
 import Query from './query';
@@ -7,6 +7,7 @@ export default function Home(props) {
 
     const { state } = useLocation();
     const navigate = useNavigate();
+
 
     function handleLogout(event) {
         event.preventDefault();
@@ -29,8 +30,7 @@ export default function Home(props) {
             <form onSubmit={handleLogout}>
                 <button type='submit'>Logout</button>
             </form>
-            {state && <Subscription email={state.email} subscriptions={state.subscriptions}/>}
-            <Query />
+            {state && <Subscription email={state.email}/>}
         </div>
     )
 }
