@@ -1,6 +1,7 @@
 package cloud.cloud.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -9,7 +10,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttri
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-
+@SuppressWarnings("unchecked")
 @DynamoDbBean
 public class User {
     
@@ -19,11 +20,12 @@ public class User {
     private List<Music> subscriptions;
 
     public User() {
-        
+        this.subscriptions = new ArrayList<Music>();
     }
 
     public User(String email) {
         this.email = email;
+        this.subscriptions = new ArrayList<Music>();
     }
     
     public User(String email, String username, String password, List<Music> subscriptions) {
@@ -76,7 +78,11 @@ public class User {
     }
 
     public void setSubscriptions(List<Music> subscriptions) {
-        this.subscriptions = subscriptions;
+        if (subscriptions != null) {
+            this.subscriptions = subscriptions;
+        } else {
+            this.subscriptions = new ArrayList<Music>();
+        }
     }
 
 

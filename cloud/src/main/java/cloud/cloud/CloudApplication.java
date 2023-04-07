@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,12 +21,8 @@ import com.google.gson.JsonObject;
 
 import cloud.cloud.dao.DynamoDB;
 import cloud.cloud.dao.S3;
-import cloud.cloud.lambda.Login;
-import cloud.cloud.lambda.Signup;
 import cloud.cloud.lambda.Song;
-import cloud.cloud.lambda.Subscription;
 import cloud.cloud.model.Music;
-import cloud.cloud.model.User;
 
 @SpringBootApplication
 public class CloudApplication {
@@ -36,19 +30,10 @@ public class CloudApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CloudApplication.class, args);
-		// DynamoDB<User> userTable = new DynamoDB<User>("login", User.class);
 
-		// Login login = new Login();
-		// Signup signup = new Signup();
-		// Subscription unsubscribe = new Subscription();
 		Song song = new Song();
 		JSONObject request = new JSONObject();
-		// JSONObject body = new JSONObject();
 
-		// body.put("email", "s38258910@student.rmit.edu.au");
-		// body.put("title", "Watching the Wheels");
-		// body.put("password", "012345");
-		// request.put("body", body.toString());
 		String str = request.toString();
 		InputStream is = new ByteArrayInputStream(str.getBytes());
 
@@ -56,15 +41,8 @@ public class CloudApplication {
 		try {
 			song.handleRequest(is, null, null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// User user = userTable.getItem(new User("s38258910@student.rmit.edu.au"));
-		// System.out.println(user.getUsername());
-		// System.out.println(user.getemail());
-		// System.out.println(user.getSubscriptions());
-
 	}
 
 	public static void downloadAndUploadAllArtistsImages() {
