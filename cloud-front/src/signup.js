@@ -91,7 +91,7 @@ export default function Signup(props) {
                 </div>
                 <button className='btn btn-primary btn-block' type='submit'>Register</button>
             </form>
-            <button className='btn btn-secondary btn-block' onClick={(e) => navigate('login')}>Login</button>
+            <button className='btn btn-secondary btn-block' onClick={(e) => navigate('/login')}>Login</button>
         </div>
     )
 }
