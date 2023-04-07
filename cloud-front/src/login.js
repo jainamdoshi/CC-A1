@@ -86,9 +86,7 @@ export default function Login(props) {
                 </div>
                 <button className='btn btn-primary btn-block' type='submit'>Login</button>
             </form>
-            <a href='/register'>
-                <button className='btn btn-secondary btn-block' >Register</button>
-            </a>
+            <button className='btn btn-secondary btn-block' onClick={(e) => navigate('/register')}>Register</button>
         </div>
     );
 }
