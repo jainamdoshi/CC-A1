@@ -69,7 +69,7 @@ export default function Login(props) {
     return (
         <div className='login container-fluid flex'>
             <h1 className='page-title'>Login</h1>
-            { !loggedInFailed &&
+            { loggedInFailed &&
                 <div className='alert alert-danger'>Email or Password is incorrect</div>
             }
             

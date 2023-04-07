@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Music from './music'
 import _ from 'lodash'
-import { useLocation } from 'react-router-dom';
 import Query from './query';
 
 export default function Subscription(props) {

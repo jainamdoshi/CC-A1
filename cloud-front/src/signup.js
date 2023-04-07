@@ -69,7 +69,7 @@ export default function Signup(props) {
         <div className='signup container-fluid flex'>
             <h1>Register</h1>
             {
-                !newUserFailed &&
+                newUserFailed &&
                 <div className='alert alert-danger'>
                     The email already exists
                 </div>
