@@ -1,0 +1,10 @@
+.username {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 25px;
+}
+
+.username p {
+    font-size: larger;
+}

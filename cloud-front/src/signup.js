@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import './sigup.css';
 
 export default function Signup(props) {
 
@@ -65,31 +66,33 @@ export default function Signup(props) {
     })
 
     return (
-        <div>
+        <div className='signup container-fluid flex'>
             <h1>Register</h1>
             {
-                newUserFailed &&
-                <div>
+                !newUserFailed &&
+                <div className='alert alert-danger'>
                     The email already exists
                 </div>
             }
-            <form onSubmit={handleOnSubmit}>
-                <label>
-                    Email: 
-                    <input type='email' onChange={emailOnChange} placeholder='john@doe.com' required></input>
-                </label>
-                <label>
-                    Username:
-                    <input type='text' onChange={usernameOnChange} placeholder='johndoe' required></input>
-                </label>
-                <label>
-                    Password:
-                    <input type='password' onChange={passwordOnChange} required></input>
-                </label>
-                <button type='submit'>Register</button>
+            <form className='justify-content-center form' onSubmit={handleOnSubmit}>
+                <div className='fields'>
+                    <label className='form-group'>
+                        Email: 
+                        <input className='form-control' type='email' onChange={emailOnChange} required></input>
+                    </label>
+                    <label className='form-group'>
+                        Username:
+                        <input className='form-control' type='text' onChange={usernameOnChange} required></input>
+                    </label>
+                    <label className='form-group'> 
+                        Password:
+                        <input className='form-control' type='password' onChange={passwordOnChange} required></input>
+                    </label>
+                </div>
+                <button className='btn btn-primary btn-block' type='submit'>Register</button>
             </form>
             <a href='/login'>
-                <button>Login</button>
+                <button className='btn btn-secondary btn-block'>Login</button>
             </a>
         </div>
     )

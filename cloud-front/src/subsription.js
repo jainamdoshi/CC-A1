@@ -68,18 +68,9 @@ export default function Subscription(props) {
     }
 
     return (
-        <div>
+        <div className='subscribtion'>
             <h3>Subscription Area</h3>
-            {
-                subscriptions.map((sub, index) => 
-                <div key={index}>
-                        <Music  email={props.email} data={sub} />
-                        <form onSubmit={e => handleSubmit(e, sub.title, sub.artist)}>
-                            <button type="submit">Remove</button>
-                        </form>
-                    </div>
-                )
-            }
+            <Music  songs={subscriptions} email={props.email} remove={handleSubmit} />
             <Query email={props.email} updateSub={updateSub}/>
         </div>
     )

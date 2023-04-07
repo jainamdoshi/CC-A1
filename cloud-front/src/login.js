@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './login.css'
 
 export default function Login(props) {
 
@@ -66,24 +67,27 @@ export default function Login(props) {
     })
 
     return (
-        <div>
-            { loggedInFailed &&
-                <div>Email or Password is incorrect</div>
+        <div className='login container-fluid flex'>
+            <h1 className='page-title'>Login</h1>
+            { !loggedInFailed &&
+                <div className='alert alert-danger'>Email or Password is incorrect</div>
             }
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email
-                    <input type='email' value={email} onChange={emailOnChange} placeholder="john@doe.com" required></input>
-                </label>
-                <label>
-                    Password
-                    <input type='password' value={password} onChange={passwordOnChanage} required></input>
-                </label>
-                <button type='submit'>Login</button>
+            
+            <form className='justify-content-center form' onSubmit={handleSubmit}>
+                <div className='fields'>
+                    <label className='form-group field'>
+                        Email:
+                        <input className='form-control' type='email' value={email} onChange={emailOnChange} required></input>
+                    </label>
+                    <label className='form-group field'>
+                        Password:
+                        <input className='form-control' type='password' value={password} onChange={passwordOnChanage} required></input>
+                    </label>
+                </div>
+                <button className='btn btn-primary btn-block' type='submit'>Login</button>
             </form>
             <a href='/register'>
-                <button>Register</button>
+                <button className='btn btn-secondary btn-block' >Register</button>
             </a>
         </div>
     );

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Subscription from './subsription';
-import Query from './query';
+import './home.css'
 
 export default function Home(props) {
 
@@ -24,12 +24,13 @@ export default function Home(props) {
 
     return (
         <div>
-            <div>
-                Welcome User: {state && state.username}
+            <div className='username'>
+                {state && <p> Welcome {state.username} </p> }
+                <form onSubmit={handleLogout}>
+                    <button className='btn btn-primary btn-block' type='submit'>Logout</button>
+                </form>
             </div>
-            <form onSubmit={handleLogout}>
-                <button type='submit'>Logout</button>
-            </form>
+            
             {state && <Subscription email={state.email}/>}
         </div>
     )

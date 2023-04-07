@@ -74,34 +74,27 @@ export default function Query(props) {
 
 
     return (
-        <div>
+        <div className='mb-5'>
             <h3>Query Area</h3>
-            <form onSubmit={handleSubmit}>
-            <label>
-                Title:
-                <input type="text" value={title} onChange={titleOnChange}></input>
-            </label>
-            <label>
-                Artist:
-                <input type="text" value={artist} onChange={artistOnChange}></input>
-            </label>
-            <label>
-                Year:
-                <input type="number" value={year} onChange={yearOnChange}></input>
-            </label>
-            <button type="submit">Query</button>
-            </form>
             {
-                songs.length == 0 ? isQueried ? <div>No result is retrieved. Please query again</div> : <div></div> :
-                songs.map((song, index) => 
-                    <div key={index}>
-                        <Music  email={props.email} data={song} />
-                        <form onSubmit={e => handleSubSubmit(e, song.title, song.artist)}>
-                            <button type="submit">Subscribe</button>
-                        </form>
-                    </div>
-                )
+                songs.length == 0 ? (isQueried ? <div className='alert alert-warning'>No result is retrieved. Please query again</div> : <div></div>) : <div></div>
             }
+            <form className='container-fluid flex' onSubmit={handleSubmit}>
+                <label className='form-group'>
+                    Title:
+                    <input className='form-control' type="text" value={title} onChange={titleOnChange}></input>
+                </label>
+                <label className='form-group'>
+                    Artist:
+                    <input className='form-control' type="text" value={artist} onChange={artistOnChange}></input>
+                </label>
+                <label className='form-group'>
+                    Year:
+                    <input className='form-control' type="number" value={year} onChange={yearOnChange}></input>
+                </label>
+                <button className='btn btn-primary btn-block' type="submit">Query</button>
+            </form>
+            <Music  songs={songs} email={props.email} add={handleSubSubmit}/>
         </div>
     )
 }
